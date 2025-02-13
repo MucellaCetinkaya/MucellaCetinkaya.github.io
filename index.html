@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mücella Cetinkaya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="script.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        .project:hover .overlay {
+            opacity: 1;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .parallax-text {
+            transition: transform 0.2s ease-out;
+        }
+        body {
+            font-family: 'CustomFont', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <nav id="navbar" class="fixed top-0 w-full bg-black bg-opacity-75 p-4 z-50">
+        <ul class="flex space-x-6 justify-center">
+            <li><a href="#about" class="text-lg hover:text-blue-400">About</a></li>
+            <li><a href="#projects" class="text-lg hover:text-blue-400">Projects</a></li>
+        </ul>
+    </nav>
+    
+    <header id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <canvas id="heroCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
+        <div class="relative text-center">
+            <h1 class="text-4xl font-bold parallax-text">Crafting Immersive Digital Worlds</h1>
+            <p class="text-lg text-blue-400 parallax-text">Code. Design. Innovation.</p>
+        </div>
+    </header>
+    
+    <section id="about" class="p-12 text-center fade-in">
+        <h2 class="text-3xl font-semibold">About Me</h2>
+        <p class="text-lg mt-4">A creative technologist blending art and code to build immersive experiences.</p>
+    </section>
+    
+    <section id="projects" class="p-12 text-center relative fade-in">
+        <h2 class="text-3xl font-semibold">Projects</h2>
+        <div id="gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 transition-all">
+            <div class="project relative cursor-pointer fade-in" onclick="openProject(this)" data-title="Project 1" data-description="Detailed description of Project 1." data-image="project1.jpg">
+                <img src="images/56.jpg" alt="Project 1" class="w-full h-auto rounded-lg shadow-lg">
+                <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity">
+                    <h3 class="text-white text-xl font-semibold">Project 1</h3>
+                </div>
+            </div>
+            <div class="project relative cursor-pointer fade-in" onclick="openProject(this)" data-title="Project 2" data-description="Detailed description of Project 2." data-image="project2.jpg">
+                <img src="project2.jpg" alt="Project 2" class="w-full h-auto rounded-lg shadow-lg">
+                <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity">
+                    <h3 class="text-white text-xl font-semibold">Project 2</h3>
+                </div>
+            </div>
+        </div>
+        
+        <div id="project-details" class="hidden mt-8 p-8 bg-gray-800 rounded-lg shadow-lg transition-all fade-in">
+            <button onclick="closeProject()" class="text-white text-2xl absolute top-2 right-4">&#10006;</button>
+            <img id="detail-image" src="" alt="Project Image" class="w-full max-w-lg mx-auto rounded-lg shadow-lg">
+            <h3 id="detail-title" class="text-3xl font-bold mt-4"></h3>
+            <p id="detail-description" class="text-lg mt-2"></p>
+            <button onclick="closeProject()" class="mt-6 px-6 py-3 bg-blue-500 hover:bg-blue-600 rounded-lg">Back to Gallery</button>
+        </div>
+    </section>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("heroCanvas"), alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            const geometry = new THREE.PlaneGeometry(20, 10, 50, 50);
+            const material = new THREE.MeshStandardMaterial({ color: new THREE.Color( 0x8f8f8f ), wireframe: true });
+            const plane = new THREE.Mesh(geometry, material);
+            plane.rotation.x = -Math.PI / 3;
+            scene.add(plane);
+
+            const light = new THREE.PointLight(0xffffff, 1, 100);
+            light.position.set(10, 10, 10);
+            scene.add(light);
+
+            camera.position.z = 10;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                for (let i = 0; i < geometry.attributes.position.count; i++) {
+                    geometry.attributes.position.array[i * 3 + 2] = Math.sin(i / 5 + performance.now() / 1000) * 0.5;
+                }
+                geometry.attributes.position.needsUpdate = true;
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            window.addEventListener("resize", () => {
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+            });
+        });
+    </script>
+</body>
+</html>
