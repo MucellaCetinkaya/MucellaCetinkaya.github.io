@@ -190,6 +190,8 @@ water = new Water( waterGeometry, {
     textureHeight: 1024
 } );
 
+water.material.transparent = true;
+
 water.position.y = .1;
 water.position.x = -15;
 water.position.z = -15;
@@ -211,7 +213,7 @@ fontLoader.load( 'assets/fonts/PoiretOne-Regular.ttf', (res) => {
   const textMat = new THREE.MeshBasicMaterial ({color: 0xffffff});
   const textMesh = new THREE.Mesh(textGeo, textMat);
   textMesh.position.x = centerOffset;
-  textMesh.position.set(-5,0.5,9);
+  textMesh.position.set(-5,0.1,9);
   textMesh.lookAt(2,0,15);
   scene.add(textMesh);
 });
