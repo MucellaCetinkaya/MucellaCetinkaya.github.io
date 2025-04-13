@@ -1,8 +1,27 @@
-@font-face {
-    font-family: 'CustomFont';
-    src: url('../fonts/Forum-Regular.ttf') format('truetype'),
-         url('../fonts/PoiretOne-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+@import url('https://fonts.googleapis.com/css2?family=Forum&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+
+:root {
+    --main-bg-color: #191A18;
+    --light-green-border: #989B91;
+    --pale-green-text: #EBEEE4;
+}
+
+nav {
+    background-color: var(--main-bg-color);
+}
+
+nav a {
+    color: var(--pale-green-text);
+}
+
+nav a:hover {
+    color: var(--light-green-border);
+}
+
+#scene-container {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid var(--light-green-border);
 }
 
