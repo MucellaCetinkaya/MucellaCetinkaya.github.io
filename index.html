@@ -18,14 +18,14 @@
 </head>
 
 <body id="home" class="bg-[var(--main-bg-color)]">
-    <nav class="sticky top-0 w-full bg-opacity-75 px-4 py-2 z-[60] flex items-end border-b-2 relative" style="background-color: var(--main-bg-color); border-color: var(--light-green-border); height: 60px;">
-        <span class="text-xl font-['Poiret_One'] align-bottom -mb-2" style="color: var(--light-green-border);">Mücella Cetinkaya</span>
+    <nav class="sticky top-0 w-full bg-opacity-75 px-4 py-2 z-[100] flex items-end border-b-2 relative" style="background-color: var(--main-bg-color); border-color: var(--light-green-border); height: 60px;">
+        <span class="text-xs sm:text-xs md:text-base lg:text-xl font-['Poiret_One'] align-bottom -mb-2" style="color: var(--light-green-border);">Mücella Cetinkaya</span>
     
         <!-- Navigation Links in the center -->
         <div class="absolute left-1/2 transform -translate-x-1/2 flex space-x-6 -mb-3">
-            <a href="#home" onclick="closeAllOverlays()" class="text-xl font-[Forum] " style="color: var(--pale-green-text);">Home</a>
-            <a href="#projects" onclick="closeAllOverlays()" class="text-xl font-[Forum]" style="color: var(--pale-green-text);">Projects</a>
-            <a href="#about" onclick="closeAllOverlays()" class="text-xl font-[Forum]" style="color: var(--pale-green-text);">About</a>
+            <a href="#home" onclick="closeAllOverlays()" class="text-xs sm:text-xs md:text-base lg:text-xl font-[Forum] " style="color: var(--pale-green-text);">Home</a>
+            <a href="#projects" onclick="closeAllOverlays()" class="text-xs sm:text-xs md:text-base lg:text-xl font-[Forum]" style="color: var(--pale-green-text);">Projects</a>
+            <a href="#about" onclick="closeAllOverlays()" class="text-xs sm:text-xs md:text-base lg:text-xl font-[Forum]" style="color: var(--pale-green-text);">About</a>
         </div>
     </nav>
     
@@ -91,7 +91,7 @@
             </div>
             <div class="absolute bottom-1/4 left-0 w-full h-[2px] bg-[var(--light-green-border)] opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-20"></div>
             <div class="absolute bottom-[calc(20%-3rem)] left-16 text-[var(--pale-green-text)] font-['Forum'] opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-20 
-            text-sm sm:text-base md:text-lg">
+            text-sm sm:text-sm md:text-lg">
             openFrameworks. C++. Shader programming. GLSL. Data Art. Data Visualization.
             </div>
         </div>
@@ -135,7 +135,7 @@
             Portfolio
             </div>
             <div class="absolute bottom-1/4 left-0 w-full h-[2px] bg-[var(--light-green-border)] opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-20"></div>
-            <div class="absolute bottom-[calc(25%-3rem)] left-16 text-[var(--pale-green-text)] font-['Forum'] opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-20 
+            <div class="absolute bottom-[calc(25%-3rem)] md:bottom-[calc(20%-3rem)] lg:bottom-[calc(25%-3rem)] left-16 text-[var(--pale-green-text)] font-['Forum'] opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-20 
             text-sm sm:text-base md:text-lg">
             Html. Css. JavaScript. Three.js. Figma. 3D modeling. Blender. Texturing. 
             </div>
@@ -294,6 +294,15 @@
             the sensor system using Arduino to detect tension and translate it into input for the visualization.</p>
         <img src="images/god/garden4.jpg" alt="garden of death god4" class="mb-4 w-full max-w-full h-auto object-contain mx-auto">
     </div>
+    <!-- Scroll to Top of Projects Button -->
+    <button 
+    onclick="scrollToProjects()" 
+    class="mt-10 mb-4 text-white text-3xl hover:text-[var(--light-green-border)] transition-all"
+    aria-label="Scroll to top of Projects section"
+    >
+    ↑
+    </button>
+
 </div>
     
 <!-- Project Details Overlay -->
@@ -412,7 +421,14 @@
         overlay.classList.add('hidden');
         overlay.style.height = '';
     });
-}
+    }
+
+    function scrollToProjects() {
+        const projectsSection = document.getElementById('projects');
+        if (projectsSection) {
+            projectsSection.scrollIntoView({ behavior: 'smooth' });
+        } 
+    };
 </script>
 
 </html>
