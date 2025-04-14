@@ -178,6 +178,7 @@
         <img src="images/courtyard/c11.png" alt="courtyard c11" class="w-full max-w-full h-auto object-contain mx-auto">
         <img src="images/courtyard/c12.png" alt="courtyard c12" class="w-full max-w-full h-auto object-contain mx-auto">
     </div>
+    <div id="button-placeholder-1"></div>
 </div>
 
 <div id="enactiveVisionDetails" class="project-overlay hidden absolute left-0 mt-[60px] w-full min-h-screen bg-black bg-opacity-90 flex flex-col items-center py-10 z-[50] overflow-auto">
@@ -229,6 +230,7 @@
             This setting further enhances the feeling of disorientation and gradual discovery, 
             aligning with the project’s exploration of perception as a dynamic, embodied process. </p>
     </div>
+    <div id="button-placeholder-2"></div>
 </div>
 
 <div id="gardenOfDeathDetails" class="project-overlay hidden absolute left-0 mt-[60px] w-full min-h-screen bg-black bg-opacity-90 flex flex-col items-center py-10 z-[50] overflow-auto">
@@ -294,14 +296,8 @@
             the sensor system using Arduino to detect tension and translate it into input for the visualization.</p>
         <img src="images/god/garden4.jpg" alt="garden of death god4" class="mb-4 w-full max-w-full h-auto object-contain mx-auto">
     </div>
-    <!-- Scroll to Top of Projects Button -->
-    <button 
-    onclick="scrollToProjects()" 
-    class="mt-10 mb-4 text-white text-3xl hover:text-[var(--light-green-border)] transition-all"
-    aria-label="Scroll to top of Projects section"
-    >
-    ↑
-    </button>
+    
+    <div id="button-placeholder-3"></div>
 
 </div>
     
@@ -332,6 +328,7 @@
             illustrations, depending on the needs of the project.</p>
         <img src="images/illustrations/ill3.png" alt="illustrations ill3" class="w-full max-w-full h-auto object-contain mx-auto">
     </div>
+    <div id="button-placeholder-4"></div>
 </div>
 
 <!-- Project Details Overlay -->
@@ -358,6 +355,7 @@
             Three.js, creating a visually dynamic and interactive introduction that reflects my interest in both design 
             and immersive media.</p>
     </div>
+    <div id="button-placeholder-5"></div>
 </div>
 
 </section>
@@ -376,6 +374,18 @@
         and discovery. Each project is an opportunity to challenge conventions, encouraging users to engage with digital spaces in unexpected ways.
     </div>
 </section>
+
+<template id="scrollToProjectsButtonTemplate">
+    <div class="flex justify-center w-full">
+      <button 
+        onclick="scrollToProjects()" 
+        class="mt-10 mb-4 text-white text-3xl hover:text-[var(--light-green-border)] transition-all"
+        aria-label="Scroll to top of Projects section"
+      >
+        ↑
+      </button>
+    </div>
+  </template>
 
 </body>
 
@@ -428,7 +438,23 @@
         if (projectsSection) {
             projectsSection.scrollIntoView({ behavior: 'smooth' });
         } 
-    };
+    }
+
+    function insertScrollButton(targetId) {
+    const placeholder = document.getElementById(targetId);
+    const template = document.getElementById('scrollToProjectsButtonTemplate');
+
+    if (placeholder && template) {
+      const clone = template.content.cloneNode(true);
+      placeholder.appendChild(clone);
+    }
+    }
+
+    insertScrollButton('button-placeholder-1');
+    insertScrollButton('button-placeholder-2');
+    insertScrollButton('button-placeholder-3');
+    insertScrollButton('button-placeholder-4');
+    insertScrollButton('button-placeholder-5');
 </script>
 
 </html>
