@@ -256,6 +256,7 @@ function animate(timeStep) {
 }
 //animate();
 
+// Text outline effect based on tutorial by Robot Bobby on Youtube: https://www.youtube.com/watch?v=a7qmBRAXqCY
 function createOutlines({ font, message }) {
     const strokeGroup = new THREE.Group();
   
@@ -281,13 +282,16 @@ function createOutlines({ font, message }) {
       totalDist = shape.getLength();
       lineMaterial.dashSize = totalDist * 3;
       lineMaterial.gapSize = totalDist * 3;
-      lineMaterial.dashOffset = totalDist;
+      lineMaterial.dashOffset = 0.0;
       
       const strokeMesh = new Line2(lineGeo, lineMaterial);
       strokeMesh.computeLineDistances();
       let offset = i * 0;
+      //strokeMesh.userData.update = (t) => {
+      //  strokeMesh.material.dashOffset = t * (totalDist * 0.1) + offset;
+      //};
       strokeMesh.userData.update = (t) => {
-        strokeMesh.material.dashOffset = t * (totalDist * 0.1) + offset;
+        strokeMesh.material.dashOffset = t * 0.2;
       };
       return strokeMesh;
     }
