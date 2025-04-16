@@ -10,7 +10,9 @@ import { Water } from 'three/addons/objects/Water2.js';
 import { TTFLoader } from 'three/addons/loaders/TTFLoader.js';
 import { Font } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-
+import { Line2 } from 'three/addons/lines/Line2.js';
+import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
+import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
 
 // Create scene, camera, and renderer
 const container = document.getElementById('scene-container');
@@ -200,22 +202,29 @@ scene.add( water );
 
 //Text
 const fontLoader = new TTFLoader();
+//fontLoader.load( 'assets/fonts/PoiretOne-Regular.ttf', (res) => {
+//    const font = new Font(res);
+//    const props = {
+//        font,
+//        size: 1,
+//        depth: 0.01,
+//    };
+//    const textGeo = new TextGeometry("Crafting Immersive Digital Worlds", props);
+//  textGeo.computeBoundingBox();
+//  const centerOffset = -0.5 * (textGeo.boundingBox.max.x - textGeo.boundingBox.min.x);
+//  const textMat = new THREE.MeshBasicMaterial ({color: 0xffffff});
+//  const textMesh = new THREE.Mesh(textGeo, textMat);
+//  textMesh.position.x = centerOffset;
+//  textMesh.position.set(-5,0.5,9);
+//  textMesh.lookAt(2,0,15);
+//  scene.add(textMesh);
+//});
+let text;
 fontLoader.load( 'assets/fonts/PoiretOne-Regular.ttf', (res) => {
     const font = new Font(res);
-    const props = {
-        font,
-        size: 1,
-        depth: 0.01,
-    };
-    const textGeo = new TextGeometry("Crafting Immersive Digital Worlds", props);
-  textGeo.computeBoundingBox();
-  const centerOffset = -0.5 * (textGeo.boundingBox.max.x - textGeo.boundingBox.min.x);
-  const textMat = new THREE.MeshBasicMaterial ({color: 0xffffff});
-  const textMesh = new THREE.Mesh(textGeo, textMat);
-  textMesh.position.x = centerOffset;
-  textMesh.position.set(-5,0.5,9);
-  textMesh.lookAt(2,0,15);
-  scene.add(textMesh);
+    text = createText({ font, message: "Crafting Immersive Digital Worlds" });
+    scene.add(text);
+    animate();
 });
 
 render();
@@ -240,8 +249,109 @@ window.addEventListener('resize', () => {
     render();
 });
 
-function animate() {
+function animate(timeStep) {
     requestAnimationFrame(animate);
+    text.userData.update(timeStep);
     renderer.render(scene, camera);
 }
-animate();
+//animate();
+
+function createOutlines({ font, message }) {
+    const strokeGroup = new THREE.Group();
+  
+    let totalDist = 3.0;
+    const lineMaterial = new LineMaterial({
+      color: 0xffffff,
+      linewidth: 1,
+      dashed: true,
+      dashSize: totalDist * 2,
+      gapSize: totalDist * 2,
+      dashOffset: Math.random() * totalDist,
+    });
+  
+    function getStrokeMesh({ shape, i = 0.0 }) {
+      let points = shape.getPoints();
+      let points3d = [];
+      points.forEach((p) => {
+        points3d.push(p.x, p.y, 0);
+      });
+      const lineGeo = new LineGeometry();
+      lineGeo.setPositions(points3d);
+    
+      totalDist = shape.getLength();
+      lineMaterial.dashSize = totalDist * 3;
+      lineMaterial.gapSize = totalDist * 3;
+      lineMaterial.dashOffset = totalDist;
+      
+      const strokeMesh = new Line2(lineGeo, lineMaterial);
+      strokeMesh.computeLineDistances();
+      let offset = i * 0;
+      strokeMesh.userData.update = (t) => {
+        strokeMesh.material.dashOffset = t * (totalDist * 0.1) + offset;
+      };
+      return strokeMesh;
+    }
+  
+    const shapes = font.generateShapes(message, 1);
+    shapes.forEach((s, i) => {
+      strokeGroup.add(getStrokeMesh({ shape: s, i }));
+  
+      if (s.holes?.length > 0) {
+        s.holes.forEach((h) => {
+          strokeGroup.add(getStrokeMesh({ shape: h, i }));
+        });
+      }
+    });
+    strokeGroup.update = (t, i) => {
+      strokeGroup.children.forEach((c) => {
+        c.userData.update?.(t);
+      });
+    };
+    return strokeGroup;
+  }
+
+  function createText({ font, message }) {
+    const textGroup = new THREE.Group();
+    const props = {
+      font,
+      size: 1,
+      depth: 0.01,
+      //curveSegments: 6,
+      //bevelEnabled: true,
+      //bevelThickness: 0.08,
+      //bevelSize: 0.01,
+      //bevelOffset: 0,
+      //bevelSegments: 2,
+    };
+    const textGeo = new TextGeometry(message, props);
+    textGeo.computeBoundingBox();
+    const centerOffset = -0.5 * (textGeo.boundingBox.max.x - textGeo.boundingBox.min.x);
+   // const glassMat = new THREE.MeshPhysicalMaterial({
+    //  roughness: 0.5,
+    //  transmission: 0.7,
+    //  transparent: true,
+    //  thickness: 1.0,
+    //});
+    const fastTransparentMat = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.2,
+      });
+    const textMesh = new THREE.Mesh(textGeo, fastTransparentMat);
+    textMesh.position.x = centerOffset;
+    textMesh.position.set(-5,0.5,9);
+    textMesh.lookAt(2,0,15);
+    textGroup.add(textMesh);
+  
+    const outlineText = createOutlines({ font, message });
+    outlineText.position.set(centerOffset, 0, 0.2);
+    outlineText.position.set(-5,0.5,9);
+    outlineText.lookAt(2,0,15);
+    textGroup.add(outlineText);
+  
+    textGroup.userData.update = (t) => {
+      let timeStep = t * 0.005;
+      outlineText.update(timeStep);
+    };
+    return textGroup;
+  }
