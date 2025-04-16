@@ -290,12 +290,27 @@ function createOutlines({ font, message }) {
         const strokeMesh = new Line2(lineGeo, localLineMaterial);
         strokeMesh.computeLineDistances();
       
-        // 🔁 Animate offset normalized by total length
         strokeMesh.userData.update = (t) => {
-            const speed = totalDist * 0.05; // adjust for desired speed
-            strokeMesh.material.dashOffset = -(t * speed) % (totalDist * 2);
-        };
-      
+            const delay = i * .2;          // Stagger delay for each letter
+            const drawDuration = 15;       // Time it takes to draw a line
+            const holdBefore = 7;         // Pause before drawing starts
+            const holdAfter = 7;          // Pause after the full draw
+            const cycleDuration = holdBefore + drawDuration + holdAfter;
+          
+            const localTime = THREE.MathUtils.euclideanModulo(t - delay, cycleDuration);
+          
+            if (localTime < holdBefore) {
+              // Initial hold: nothing is drawn
+              strokeMesh.material.dashOffset = totalDist * 2;
+            } else if (localTime < holdBefore + drawDuration) {
+              // Active drawing phase
+              const drawProgress = (localTime - holdBefore) / drawDuration;
+              strokeMesh.material.dashOffset = -drawProgress * totalDist * 2;
+            } else {
+              // After hold: everything is drawn
+              strokeMesh.material.dashOffset = 0;
+            }
+          };
         return strokeMesh;
       }
       
