@@ -213,7 +213,7 @@ fontLoader.load( 'assets/fonts/PoiretOne-Regular.ttf', (res) => {
   const textMat = new THREE.MeshBasicMaterial ({color: 0xffffff});
   const textMesh = new THREE.Mesh(textGeo, textMat);
   textMesh.position.x = centerOffset;
-  textMesh.position.set(-5,0.1,9);
+  textMesh.position.set(-5,0.5,9);
   textMesh.lookAt(2,0,15);
   scene.add(textMesh);
 });
