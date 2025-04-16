@@ -270,39 +270,43 @@ function createOutlines({ font, message }) {
       dashOffset: Math.random() * totalDist,
     });
   
-    function getStrokeMesh({ shape, i = 0.0 }) {
-      let points = shape.getPoints();
-      let points3d = [];
-      points.forEach((p) => {
-        points3d.push(p.x, p.y, 0);
-      });
-      const lineGeo = new LineGeometry();
-      lineGeo.setPositions(points3d);
-    
-      totalDist = shape.getLength();
-      lineMaterial.dashSize = totalDist * 3;
-      lineMaterial.gapSize = totalDist * 3;
-      lineMaterial.dashOffset = 0.0;
+    function getStrokeMesh({ shape, i = 0.0, reverse = false }) {
+        const points = shape.getPoints();
+        if (reverse) {
+            points.reverse();
+          }
+        const points3d = points.flatMap(p => [p.x, p.y, 0]);
       
-      const strokeMesh = new Line2(lineGeo, lineMaterial);
-      strokeMesh.computeLineDistances();
-      let offset = i * 0;
-      //strokeMesh.userData.update = (t) => {
-      //  strokeMesh.material.dashOffset = t * (totalDist * 0.1) + offset;
-      //};
-      strokeMesh.userData.update = (t) => {
-        strokeMesh.material.dashOffset = t * 0.2;
-      };
-      return strokeMesh;
-    }
+        const lineGeo = new LineGeometry();
+        lineGeo.setPositions(points3d);
+      
+        const localLineMaterial = lineMaterial.clone(); // Unique material per shape
+      
+        const totalDist = shape.getLength();
+        localLineMaterial.dashSize = totalDist * 5;
+        localLineMaterial.gapSize = totalDist * 1;
+        localLineMaterial.dashOffset = Math.random() * totalDist;
+      
+        const strokeMesh = new Line2(lineGeo, localLineMaterial);
+        strokeMesh.computeLineDistances();
+      
+        // 🔁 Animate offset normalized by total length
+        strokeMesh.userData.update = (t) => {
+            const speed = totalDist * 0.05; // adjust for desired speed
+            strokeMesh.material.dashOffset = -(t * speed) % (totalDist * 2);
+        };
+      
+        return strokeMesh;
+      }
+      
   
     const shapes = font.generateShapes(message, 1);
     shapes.forEach((s, i) => {
-      strokeGroup.add(getStrokeMesh({ shape: s, i }));
+      strokeGroup.add(getStrokeMesh({ shape: s, i, reverse: false }));
   
       if (s.holes?.length > 0) {
         s.holes.forEach((h) => {
-          strokeGroup.add(getStrokeMesh({ shape: h, i }));
+          strokeGroup.add(getStrokeMesh({ shape: h, i, reverse: true }));
         });
       }
     });
