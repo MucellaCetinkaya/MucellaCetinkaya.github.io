@@ -13,6 +13,8 @@ import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { Line2 } from 'three/addons/lines/Line2.js';
 import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
 import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
+import { overlayTemplates } from './content.js';
+
 
 // Create scene, camera, and renderer
 const container = document.getElementById('scene-container');
@@ -378,3 +380,77 @@ function createOutlines({ font, message }) {
     };
     return textGroup;
   }
+
+  function showProjectDetails(projectName) {
+    const overlay = document.getElementById(projectName);
+    const contentDiv = document.getElementById(projectName + "Content");
+
+    if (!contentDiv.innerHTML) {
+        contentDiv.innerHTML = overlayTemplates[projectName];
+    }
+
+    const projectsSection = document.getElementById('projects');
+    const projectsTop = projectsSection.offsetTop;
+
+    overlay.style.top = projectsTop + 'px';
+    overlay.classList.remove('hidden');
+
+    // Wait for all images inside the overlay to load
+    const images = overlay.querySelectorAll('img');
+    let imagesLoaded = 0;
+
+    if (images.length === 0) {
+        applyOverlayHeight();
+    } else {
+        images.forEach((img) => {
+            if (img.complete) {
+                imagesLoaded++;
+                if (imagesLoaded === images.length) {
+                    applyOverlayHeight();
+                }
+            } else {
+                img.addEventListener('load', () => {
+                    imagesLoaded++;
+                    if (imagesLoaded === images.length) {
+                        applyOverlayHeight();
+                    }
+                });
+                img.addEventListener('error', () => {
+                    imagesLoaded++;
+                    if (imagesLoaded === images.length) {
+                        applyOverlayHeight();
+                    }
+                });
+            }
+        });
+    }
+
+    if (projectsSection) {
+        projectsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function applyOverlayHeight() {
+        const docHeight = Math.max(
+            document.body.scrollHeight,
+            document.documentElement.scrollHeight,
+            document.body.offsetHeight,
+            document.documentElement.offsetHeight,
+            document.body.clientHeight,
+            document.documentElement.clientHeight
+        );
+        overlay.style.height = (docHeight - window.innerHeight / 2) + 'px';
+        overlay.style.overflow = 'visible';
+    }
+}
+
+window.showProjectDetails = showProjectDetails;
+
+function hideProjectDetails(projectName) {
+    document.getElementById(projectName).classList.add('hidden');
+    const overlay = document.getElementById(projectName);
+    overlay.style.height = '';
+
+    const contentDiv = document.getElementById(projectName + "Content");
+    if (contentDiv) contentDiv.innerHTML = '';
+}
+window.hideProjectDetails = hideProjectDetails;
