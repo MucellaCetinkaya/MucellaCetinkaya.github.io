@@ -224,14 +224,6 @@
 <script>
     
 
-    function closeAllOverlays() {
-    const overlays = document.querySelectorAll('.project-overlay');
-    overlays.forEach(overlay => {
-        overlay.classList.add('hidden');
-        overlay.style.height = '';
-    });
-    }
-
     function scrollToProjects() {
         const projectsSection = document.getElementById('projects');
         if (projectsSection) {

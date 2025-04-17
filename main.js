@@ -454,3 +454,15 @@ function hideProjectDetails(projectName) {
     if (contentDiv) contentDiv.innerHTML = '';
 }
 window.hideProjectDetails = hideProjectDetails;
+
+function closeAllOverlays() {
+    const overlays = document.querySelectorAll('.project-overlay');
+    overlays.forEach(overlay => {
+        overlay.classList.add('hidden');
+        overlay.style.height = '';
+
+        const contentDiv = overlay.querySelector('[id$="Content"]');
+        if (contentDiv) contentDiv.innerHTML = '';
+    });
+}
+window.closeAllOverlays = closeAllOverlays;
