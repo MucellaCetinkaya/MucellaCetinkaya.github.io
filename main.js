@@ -293,7 +293,10 @@ function createOutlines({ font, message }) {
         strokeMesh.computeLineDistances();
       
         strokeMesh.userData.update = (t) => {
-            strokeMesh.material.dashOffset = -t * totalDist * 0.1; // Adjust multiplier to tune speed
+            const delay = i * 1;
+            const localTime = Math.max(t - delay, 0);
+            const speed = totalDist * 0.1;
+            strokeMesh.material.dashOffset = -localTime * speed, totalDist * 2; // Adjust multiplier to tune speed
           };
         return strokeMesh;
       }
