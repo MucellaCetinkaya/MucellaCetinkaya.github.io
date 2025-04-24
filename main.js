@@ -285,33 +285,15 @@ function createOutlines({ font, message }) {
         const localLineMaterial = lineMaterial.clone(); // Unique material per shape
       
         const totalDist = shape.getLength();
-        localLineMaterial.dashSize = totalDist * 5;
-        localLineMaterial.gapSize = totalDist * 1;
+        localLineMaterial.dashSize = totalDist * 3;
+        localLineMaterial.gapSize = totalDist * 2;
         localLineMaterial.dashOffset = Math.random() * totalDist;
       
         const strokeMesh = new Line2(lineGeo, localLineMaterial);
         strokeMesh.computeLineDistances();
       
         strokeMesh.userData.update = (t) => {
-            const delay = i * .2;          // Stagger delay for each letter
-            const drawDuration = 15;       // Time it takes to draw a line
-            const holdBefore = 7;         // Pause before drawing starts
-            const holdAfter = 7;          // Pause after the full draw
-            const cycleDuration = holdBefore + drawDuration + holdAfter;
-          
-            const localTime = THREE.MathUtils.euclideanModulo(t - delay, cycleDuration);
-          
-            if (localTime < holdBefore) {
-              // Initial hold: nothing is drawn
-              strokeMesh.material.dashOffset = totalDist * 2;
-            } else if (localTime < holdBefore + drawDuration) {
-              // Active drawing phase
-              const drawProgress = (localTime - holdBefore) / drawDuration;
-              strokeMesh.material.dashOffset = -drawProgress * totalDist * 2;
-            } else {
-              // After hold: everything is drawn
-              strokeMesh.material.dashOffset = 0;
-            }
+            strokeMesh.material.dashOffset = -t * totalDist * 0.1; // Adjust multiplier to tune speed
           };
         return strokeMesh;
       }
