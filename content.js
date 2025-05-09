@@ -11,6 +11,11 @@ export const overlayTemplates = {
             for patients afflicted with a fear of heights. Therapist and patient explore an apartment building that 
             constitutes a stage for various tasks designed to promote exposure. Tasks can be freely assigned to any floor,
             enabling the modification of difficulty levels.</p>
+        <div class="flex justify-center mb-4">
+            <video width="1280" height="720" autoplay loop muted playsinline>
+                <source src="videos/courtyard2.mp4" type="video/mp4">
+            </video>
+        </div>    
         <img src="images/courtyard/c13.jpg" alt="courtyard c13" class="w-full max-w-full h-auto object-contain mx-auto">
         <p class="mb-4 mt-4 font-['Forum'] text-[var(--pale-green-text)] text-lg">In this multi-user, co-located Unity VR project, 
             I have developed a task assignment system 
@@ -19,15 +24,35 @@ export const overlayTemplates = {
             elevator, which can be used by all users simultaneously to reach any floor in the apartment. In addition to
             developing the whole project, I have created some of the assets found in this project using Blender for 3D modeling
             and rigging, and Adobe Substance Painter for texturing. </p>
-        <img src="images/courtyard/c4.jpg" alt="courtyard c4" class="w-full max-w-full h-auto object-contain mx-auto">
-        <img src="images/courtyard/c6.jpg" alt="courtyard c6" class="w-full max-w-full h-auto object-contain mx-auto">
+        <img src="images/courtyard/c4.jpg" alt="courtyard c4" class="w-full max-w-full h-auto object-contain mx-auto mb-4">        
+        <div class="flex justify-center mb-4">
+            <video width="1280" height="720" autoplay loop muted playsinline>
+                <source src="videos/courtyard3.mp4" type="video/mp4">
+            </video>
+        </div>
+        <img src="images/courtyard/c6.jpg" alt="courtyard c6" class="w-full max-w-full h-auto object-contain mx-auto mb-4">
+        <div class="flex justify-center mb-4">
+            <video width="1280" height="720" autoplay loop muted playsinline>
+                <source src="videos/courtyard4.mp4" type="video/mp4">
+            </video>
+        </div>
         <p class="mb-4 mt-4 font-['Forum'] text-[var(--pale-green-text)] text-lg">A core feature of this project is the 
             selection of tasks designed to bring the patient close to the edge of the balconies. I have developed all 
             tasks, some of which include repairing a sattelite dish, cleaning windows, planting seeds, walking on a plank 
             and more. I have populated the floors mostly with assets available online, and some assets created by me.</p>
-        <img src="images/courtyard/c9.jpg" alt="courtyard c9" class="w-full max-w-full h-auto object-contain mx-auto">
-        <img src="images/courtyard/c11.jpg" alt="courtyard c11" class="w-full max-w-full h-auto object-contain mx-auto">
-        <img src="images/courtyard/c12.jpg" alt="courtyard c12" class="w-full max-w-full h-auto object-contain mx-auto">
+        <img src="images/courtyard/c9.jpg" alt="courtyard c9" class="w-full max-w-full h-auto object-contain mx-auto mb-4">
+        <div class="flex justify-center mb-4">
+            <video width="1280" height="720" autoplay loop muted playsinline>
+                <source src="videos/courtyard7.mp4" type="video/mp4">
+            </video>
+        </div>
+        <img src="images/courtyard/c11.jpg" alt="courtyard c11" class="w-full max-w-full h-auto object-contain mx-auto mb-4">
+        <img src="images/courtyard/c12.jpg" alt="courtyard c12" class="w-full max-w-full h-auto object-contain mx-auto mb-4">
+        <div class="flex justify-center mb-4">
+            <video width="1280" height="720" autoplay loop muted playsinline>
+                <source src="videos/courtyard6.mp4" type="video/mp4">
+            </video>
+        </div>
     </div>
 
     `,
