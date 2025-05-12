@@ -207,9 +207,9 @@ export const overlayTemplates = {
         <img src="images/portfolio/portfolio1.png" alt="portfolio cover" class="w-full max-w-full h-auto object-contain mx-auto">
         <p class="mb-4 mt-4 font-['Forum'] text-[var(--pale-green-text)] text-lg">A key feature of this site is the 
             3D hero scene, which I designed in Figma and then brought to life by modeling and texturing the environment 
-            from scratch in Blender (excluding the human and door models). I integrated the scene into the website using 
-            Three.js, creating a visually dynamic and interactive introduction that reflects my interest in both design 
-            and immersive media.</p>
+            from scratch in Blender (excluding the human and door models). I integrated the 3D environment, the animated water
+             and the dynamic text into the website using Three.js, creating a visually dynamic introduction rendered in 
+             real-time that reflects my interest in both design and immersive media.</p>
     </div>
     
     `
