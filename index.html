@@ -41,7 +41,7 @@
     <div class="w-full h-[2px] bg-[var(--light-green-border)]"></div>
 
     <!-- Project Gallery -->
-    <div class="border-[2px] border-[var(--light-green-border)] p-2 grid grid-cols-1 sm:grid-cols-2 gap-0.5 max-w-[1200px] mx-auto mt-[80px]">
+    <div class="border-[2px] border-[var(--light-green-border)] p-2 grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-[1200px] mx-auto mt-[80px]">
         <!-- Project Item -->
         <div class="relative overflow-hidden max-w-[700px] max-h-[700px] mx-auto group cursor-pointer" onclick="showProjectDetails('enactiveVisionDetails')">
             <!-- Gradient overlay on hover -->
@@ -199,10 +199,20 @@
     </div>
     <div class="w-full h-[2px] bg-[var(--light-green-border)]"></div>
 
-    <div class="w-full mx-auto max-w-[800px] font-[Forum] bg-[var(--main-bg-color)] border-2 border-[var(--light-green-border)] p-4 text-lg text-[var(--pale-green-text)] text-center mt-8 px-6">
-        I move between disciplines—technical and artistic, structured and intuitive—because the most compelling experiences exist in the space between categories. 
-        Whether writing code, designing interactions, or crafting visual narratives, I work to create immersive worlds that invite exploration, interpretation, 
-        and discovery. Each project is an opportunity to challenge conventions, encouraging users to engage with digital spaces in unexpected ways.
+    <div class="flex flex-col md:flex-row items-stretch justify-center max-w-[1000px] mx-auto mt-[80px] mb-[80px] gap-6">
+        <!-- Text Box -->
+        <div class="flex-1 flex items-center justify-center font-[Forum] bg-[var(--main-bg-color)] border-2 border-[var(--light-green-border)] p-4 text-lg text-[var(--pale-green-text)] text-center">
+            <p>
+                I move between disciplines—technical and artistic, structured and intuitive—because the most compelling experiences exist in the space between categories. 
+                Whether writing code, designing interactions, or crafting visual narratives, I work to create immersive worlds that invite exploration, interpretation, 
+                and discovery. Each project is an opportunity to challenge conventions, encouraging users to engage with digital spaces in unexpected ways.
+            </p>
+        </div>
+
+        <!-- Image Container -->
+        <div class="flex flex-1 max-w-[300px] max-h-[400px] w-full items-center justify-center self-center">
+            <img src="images/main/ProfilePicture.jpg" alt="About Image" class="w-full h-auto object-contain">
+        </div>
     </div>
 </section>
 
