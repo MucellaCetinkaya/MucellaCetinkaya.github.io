@@ -212,5 +212,49 @@ export const overlayTemplates = {
             and immersive media.</p>
     </div>
     
+    `,
+    ANIMADetails:`
+    <h2 class="text-4xl font-['Poiret_One'] text-center text-white ">ANIMA</h2>
+    <div class="w-full h-[2px] bg-[var(--light-green-border)] -mt-1"></div>
+
+    <div class="text-white text-lg max-w-[800px] mx-auto p-4 mt-8">
+        <img src="images/anima/anima_cover.jpg" alt="courtyard c2" class="w-full max-w-full h-auto object-contain mx-auto">
+        <p class="mt-4 text-3xl font-['Poiret_One'] text-center text-[var(--pale-green-text)]">Bringing Historical Artefacts to Life</p>
+        <div class="w-full h-[2px] bg-[var(--light-green-border)] mb-4 -mt-1"></div>
+        <p class="mb-8 font-['Forum'] text-[var(--pale-green-text)] text-lg">In collaboration with Staatliche Kunstsammlungen 
+            Dresden (Dresden State Art Collections), cura3D, Technische Visualistik, and TU Dresden IXLAB, this project 
+            explores techniques for bringing historical puppets to life in a mixed reality environment. </p>
+        <div class="flex justify-center mb-4">
+            <video width="1280" height="720" autoplay loop muted playsinline>
+                <source src="videos/anima_reel.mp4" type="video/mp4">
+            </video>
+        </div>
+        <p class="mb-8 font-['Forum'] text-[var(--pale-green-text)] text-lg">My contributions include modeling the puppets in 
+            3D and implementing their interactive behaviors within a game engine. I focused on maintaining optimized performance 
+            to meet the constraints of mobile platforms such as virtual reality headsets, while preserving visual quality and 
+            responsiveness. All puppets displayed on this page were modelled and implemented by me.</p>
+        <img src="images/anima/pinocchio.jpg" alt="enactive vision ev2" class="mb-4 w-full max-w-full h-auto object-contain mx-auto">
+        <p class="mb-8 font-['Forum'] text-[var(--pale-green-text)] text-lg">The process begins with creating virtual models 
+            based on real historical puppets. I build low-poly 3D models in Blender, using 3D scans provided by my colleague 
+            as reference. I then project the textures from the high-resolution scans onto the low-poly models, rig them, and 
+            prepare them for integration into the Unity game engine. In Unity, I implement all interactive functionalities, 
+            which includes, but is not limited to, scripting behaviors, adding ragdoll physics, and integrating cloth simulation.
+        </p>
+        <div class="flex justify-center mb-4">
+            <video width="1280" height="720" autoplay loop muted playsinline>
+                <source src="videos/anima_pinocchio.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="flex justify-center mb-4">
+            <video width="1280" height="720" autoplay loop muted playsinline>
+                <source src="videos/anima_hand_puppet.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="flex justify-center mb-4">
+            <video width="1280" height="720" autoplay loop muted playsinline>
+                <source src="videos/anima_cloth.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
     `
   };

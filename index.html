@@ -97,17 +97,17 @@
         </div>
     
         <!-- Project 4 -->
-        <div class="relative overflow-hidden max-w-[700px] max-h-[700px] mx-auto group">
+        <div class="relative overflow-hidden max-w-[700px] max-h-[700px] mx-auto group cursor-pointer" onclick="showProjectDetails('ANIMADetails')">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 from-20% via-black/10 to-black/20 to 50% opacity-0 group-hover:opacity-100 transition-opacity duration-150"></div>
             <img src="images/anima/anima_cover.jpg" alt="Project 4" class="w-full h-full object-cover">
             <div class="absolute bottom-1/4 left-16 text-white font-['Poiret_One'] opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-20 
             text-lg sm:text-xl md:text-2xl lg:text-3xl">
-            Anima
+            ANIMA
             </div>
             <div class="absolute bottom-1/4 left-0 w-full h-[2px] bg-[var(--light-green-border)] opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-20"></div>
-            <div class="absolute bottom-[calc(25%-3rem)] left-16 text-[var(--pale-green-text)] font-['Forum'] opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-20 
-            text-sm sm:text-base md:text-lg">
-            Section in progress.
+            <div class="absolute bottom-[calc(20%-4rem)] left-16 text-[var(--pale-green-text)] font-['Forum'] opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-20 
+            text-sm sm:text-sm md:text-base sm:bottom-[calc(20%-3rem)] sm:left-8 md:left-16">
+            Unity. C#. Interaction design. AR development. Multiplayer Networking. Blender. Modeling. Rigging.
             </div>
         </div>
 
@@ -182,11 +182,21 @@
 <!-- Project Details Overlay -->
 <div id="PortfolioDetails" class="project-overlay hidden absolute left-0 top-[60px] w-full bg-black bg-opacity-90 flex flex-col items-center py-10 z-[50] overflow-auto">
     <!-- Close Button -->
-    <button class="sticky top-4 right-6 self-end text-white text-2xl font-bold px-4" onclick="hideProjectDetails('PortfolioDetails')">✖</button>
+    <button class="sticky top-4 pt-16 right-6 self-end text-white text-2xl font-bold px-4" onclick="hideProjectDetails('PortfolioDetails')">✖</button>
 
     <!-- Project Details Content -->
     <div id="PortfolioDetailsContent"></div>
     <div id="button-placeholder-5"></div>
+</div>
+
+<!-- Project Details Overlay -->
+<div id="ANIMADetails" class="project-overlay hidden absolute left-0 top-[60px] w-full bg-black bg-opacity-90 flex flex-col items-center py-10 z-[50] overflow-auto">
+    <!-- Close Button -->
+    <button class="sticky top-4 pt-16 right-6 self-end text-white text-2xl font-bold px-4" onclick="hideProjectDetails('ANIMADetails')">✖</button>
+
+    <!-- Project Details Content -->
+    <div id="ANIMADetailsContent"></div>
+    <div id="button-placeholder-6"></div>
 </div>
 
 </section>
@@ -256,6 +266,7 @@
     insertScrollButton('button-placeholder-3');
     insertScrollButton('button-placeholder-4');
     insertScrollButton('button-placeholder-5');
+    insertScrollButton('button-placeholder-6');
 </script>
 
 </html>
