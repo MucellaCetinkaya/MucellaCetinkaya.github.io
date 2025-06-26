@@ -155,7 +155,7 @@ loader.load('assets/models/buildingOneMeshlowUV.glb', function (gltf) {
                     loadedLightMap.flipY = true;
                     loadedLightMap.encoding = THREE.LinearEncoding;
                     child.material.lightMap = loadedLightMap;
-                    child.material.lightMapIntensity = 1;
+                    child.material.lightMapIntensity = 2;
                     child.material.needsUpdate = true;
                 });
 
