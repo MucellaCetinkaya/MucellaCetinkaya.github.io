@@ -1,8 +1,5 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
-import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
 //import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { EXRLoader } from 'three/addons/loaders/EXRLoader.js';
 import { Water } from 'three/addons/objects/Water2.js';
@@ -97,45 +94,6 @@ const cursorMarker = new THREE.Mesh(markerGeometry, markerMaterial);
 cursorMarker.visible = false;
 scene.add(cursorMarker);
 
-//top area light
-//var width = 8;
-//var height = 8;
-//var intensity = 1;
-//const rectLight = new THREE.RectAreaLight( 0xffffff, intensity,  width, height );
-//rectLight.position.set( -15, 25, -7 );
-//rectLight.lookAt( -15, 0, -7 );
-//scene.add( rectLight )
-
-//top2 area light
-//width = 11;
-//height = 4;
-//intensity = 1;
-//const rectLight2 = new THREE.RectAreaLight( 0xffffff, intensity,  width, height );
-//rectLight2.position.set( -20, 23, -5 );
-//rectLight2.lookAt( -15, 23, -5 );
-//scene.add( rectLight2 )
-
-//top3 area light
-//width = 16;
-//height = 4;
-//intensity = 1;
-//const rectLight3 = new THREE.RectAreaLight( 0xffffff, intensity,  width, height );
-//rectLight3.position.set( -25, 10, -8 );
-//rectLight3.lookAt( -15, 10, -8 );
-//scene.add( rectLight3 )
-
-//middle left area light
-//width = 16;
-//height = 10;
-//intensity = 1;
-//const rectLight4 = new THREE.RectAreaLight( 0xffffff, intensity,  width, height );
-//rectLight4.position.set( -44, 3, 0 );
-//rectLight4.lookAt( -15, -5, 0 );
-//scene.add( rectLight4 )
-
-//const rectLightHelper = new RectAreaLightHelper( rectLight4 );
-//rectLight4.add( rectLightHelper );
-
 scene.fog = new THREE.Fog( 0xe8e0bd, 12, 100 );
 
 
@@ -206,7 +164,8 @@ water = new Water( waterGeometry, {
     scale: 10,
     flowDirection: new THREE.Vector2( 0.1, 0.1 ),
     textureWidth: 1024,
-    textureHeight: 1024
+    textureHeight: 1024,
+    reflectivity: 0.2
 } );
 
 water.material.transparent = true;
@@ -219,23 +178,6 @@ scene.add( water );
 
 //Text
 const fontLoader = new TTFLoader();
-//fontLoader.load( 'assets/fonts/PoiretOne-Regular.ttf', (res) => {
-//    const font = new Font(res);
-//    const props = {
-//        font,
-//        size: 1,
-//        depth: 0.01,
-//    };
-//    const textGeo = new TextGeometry("Crafting Immersive Digital Worlds", props);
-//  textGeo.computeBoundingBox();
-//  const centerOffset = -0.5 * (textGeo.boundingBox.max.x - textGeo.boundingBox.min.x);
-//  const textMat = new THREE.MeshBasicMaterial ({color: 0xffffff});
-//  const textMesh = new THREE.Mesh(textGeo, textMat);
-//  textMesh.position.x = centerOffset;
-//  textMesh.position.set(-5,0.5,9);
-//  textMesh.lookAt(2,0,15);
-//  scene.add(textMesh);
-//});
 let text;
 fontLoader.load( 'assets/fonts/PoiretOne-Regular.ttf', (res) => {
     const font = new Font(res);
@@ -245,11 +187,6 @@ fontLoader.load( 'assets/fonts/PoiretOne-Regular.ttf', (res) => {
 });
 
 render();
-
-//const controls = new OrbitControls( camera, renderer.domElement );
-//controls.addEventListener( 'change', render );
-//controls.target.set( 0, 2, 0 );
-//controls.update();
 
 function render() {
 
@@ -344,22 +281,11 @@ function createOutlines({ font, message }) {
       font,
       size: 1,
       depth: 0.01,
-      //curveSegments: 6,
-      //bevelEnabled: true,
-      //bevelThickness: 0.08,
-      //bevelSize: 0.01,
-      //bevelOffset: 0,
-      //bevelSegments: 2,
     };
     const textGeo = new TextGeometry(message, props);
     textGeo.computeBoundingBox();
     const centerOffset = -0.5 * (textGeo.boundingBox.max.x - textGeo.boundingBox.min.x);
-   // const glassMat = new THREE.MeshPhysicalMaterial({
-    //  roughness: 0.5,
-    //  transmission: 0.7,
-    //  transparent: true,
-    //  thickness: 1.0,
-    //});
+
     const fastTransparentMat = new THREE.MeshBasicMaterial({
         color: 0xffffff,
         transparent: true,
