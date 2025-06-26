@@ -87,16 +87,13 @@ function onMouseMove(event) {
     mouse.y = -(y / canvasBounds.height) * 2 + 1;
 }
 const markerGeometry = new THREE.SphereGeometry(0.05, 16, 16);
-const markerMaterial = new THREE.MeshStandardMaterial({
+const markerMaterial = new THREE.MeshBasicMaterial({
     color: 0xffffff,
-    emissive: 0xffffff,
-    emissiveIntensity: 2,
-    roughness: 0.2,
-    metalness: 0.1,
     transparent: true,
-    opacity: 0.9,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false
+    opacity: 0.5,
+    emissive: new THREE.Color(0xffffff),
+    emissiveIntensity: 2.5,
+    depthWrite: false,
 });
 const cursorMarker = new THREE.Mesh(markerGeometry, markerMaterial);
 cursorMarker.visible = false;
