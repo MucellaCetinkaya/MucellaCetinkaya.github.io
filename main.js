@@ -21,6 +21,7 @@ const container = document.getElementById('scene-container');
 const scene = new THREE.Scene();
 scene.background = new THREE.Color( 0xd1cebe );
 let water;
+const interactiveMeshes = [];
 
 const focalLength = 34;
 const sensorWidth = 36;
@@ -55,12 +56,51 @@ camera.rotation.set(
 
 camera.lookAt(0, 5, 0);
 
-//const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.7 );
-//directionalLight.position.set(5, 50, 5);
-//directionalLight.castShadow = true;
-//scene.add( directionalLight );
 const light = new THREE.AmbientLight( 0x404040, 0.3); // soft white light
 scene.add( light );
+
+//add cursor light
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+let cursorLight = null;
+
+// Max distance from camera to intersection point
+const MAX_DISTANCE = 50;
+// Distance along the surface normal from the intersection point
+const NORMAL_OFFSET = 0.3;
+
+cursorLight = new THREE.PointLight(0xffffff, 1, 5);
+cursorLight.visible = false;
+scene.add(cursorLight);
+
+window.addEventListener('mousemove', onMouseMove, false);
+
+function onMouseMove(event) {
+    const canvasBounds = renderer.domElement.getBoundingClientRect();
+
+    // Get mouse position relative to canvas
+    const x = event.clientX - canvasBounds.left;
+    const y = event.clientY - canvasBounds.top;
+
+    // Convert to normalized device coordinates (-1 to +1)
+    mouse.x = (x / canvasBounds.width) * 2 - 1;
+    mouse.y = -(y / canvasBounds.height) * 2 + 1;
+}
+const markerGeometry = new THREE.SphereGeometry(0.05, 16, 16);
+const markerMaterial = new THREE.MeshStandardMaterial({
+    color: 0xffffff,
+    emissive: 0xffffff,
+    emissiveIntensity: 2,
+    roughness: 0.2,
+    metalness: 0.1,
+    transparent: true,
+    opacity: 0.9,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+});
+const cursorMarker = new THREE.Mesh(markerGeometry, markerMaterial);
+cursorMarker.visible = false;
+scene.add(cursorMarker);
 
 //top area light
 //var width = 8;
@@ -123,21 +163,7 @@ loader.load('assets/models/buildingOneMeshlowUV.glb', function (gltf) {
     model.traverse((child) => {
         if (child.isMesh) {
             console.log(`Mesh detected: ${child.name}`);
-            
-            
-//                const material = child.material;
-//                if (material.map) {
-//                    console.log(`Modifying texture scale for: ${child.name}`);
-    
-//                    material.map.wrapS = THREE.RepeatWrapping;
-//                    material.map.wrapT = THREE.RepeatWrapping;
-                    
-                    // Set the scale based on Blender's Mapping Node values
-//                    material.map.repeat.set(6.95, 6.95); 
-//    
-//                    material.needsUpdate = true;
-//                }
-            
+            interactiveMeshes.push(child);
 
             // Ensure UV2 is set up
             if (child.geometry.attributes.uv1) {
@@ -248,6 +274,9 @@ window.addEventListener('resize', () => {
 function animate(timeStep) {
     requestAnimationFrame(animate);
     text.userData.update(timeStep);
+
+    updateCursorLight();
+
     renderer.render(scene, camera);
 }
 //animate();
@@ -359,6 +388,39 @@ function createOutlines({ font, message }) {
     };
     return textGroup;
   }
+
+  function updateCursorLight() {
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(interactiveMeshes, true); // true = check children
+
+    if (intersects.length > 0) {
+        const intersect = intersects[0];
+        const point = intersect.point.clone();
+        const normal = intersect.face.normal.clone();
+        const object = intersect.object;
+
+        normal.transformDirection(object.matrixWorld);
+        const cameraToPoint = camera.position.distanceTo(point);
+        let offsetPosition;
+
+        if (cameraToPoint <= MAX_DISTANCE) {
+            offsetPosition = point.clone().add(normal.multiplyScalar(NORMAL_OFFSET));
+        } else {
+            const direction = raycaster.ray.direction.clone().normalize();
+            offsetPosition = camera.position.clone().add(direction.multiplyScalar(MAX_DISTANCE));
+        }
+
+        cursorLight.position.copy(offsetPosition);
+        cursorLight.visible = true;
+
+        cursorMarker.position.copy(offsetPosition);
+        cursorMarker.visible = true;
+
+    } else {
+        cursorLight.visible = false;
+        cursorMarker.visible = false;
+    }
+}
 
   function showProjectDetails(projectName) {
     const overlay = document.getElementById(projectName);
