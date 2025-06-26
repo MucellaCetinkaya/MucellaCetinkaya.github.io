@@ -91,8 +91,6 @@ const markerMaterial = new THREE.MeshBasicMaterial({
     color: 0xffffff,
     transparent: true,
     opacity: 0.5,
-    emissive: new THREE.Color(0xffffff),
-    emissiveIntensity: 2.5,
     depthWrite: false,
 });
 const cursorMarker = new THREE.Mesh(markerGeometry, markerMaterial);
@@ -178,7 +176,7 @@ loader.load('assets/models/buildingOneMeshlowUV.glb', function (gltf) {
                     loadedLightMap.flipY = true;
                     loadedLightMap.encoding = THREE.LinearEncoding;
                     child.material.lightMap = loadedLightMap;
-                    child.material.lightMapIntensity = 2;
+                    child.material.lightMapIntensity = 3;
                     child.material.needsUpdate = true;
                 });
 
