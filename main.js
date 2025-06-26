@@ -106,20 +106,14 @@ scene.fog = new THREE.Fog( 0xe8e0bd, 12, 100 );
 
 // Load GLTF Model
 const loader = new GLTFLoader();
-loader.load('assets/models/building10.glb', function (gltf) {
+loader.load('assets/models/buildingOneMeshlowUV.glb', function (gltf) {
     const model = gltf.scene;
     model.scale.set(1, 1, 1);
     scene.add(model);
 
     // Define specific lightmaps and AO maps for each object
     const texturePaths = {
-        "Plane": { lightmap: "assets/models/Lightmap_Building_new.exr", aoMap: "assets/models/AO_Building_new.png" },
-        "Plane_1": { lightmap: "assets/models/Lightmap_Building_new.exr", aoMap: "assets/models/AO_Building_new.png" },
-        "Mesh559": { lightmap: "assets/models/Lightmap_Man.exr", aoMap: "assets/models/AO_Man.png" },
-        "Mesh559_1": { lightmap: "assets/models/Lightmap_Man.exr", aoMap: "assets/models/AO_Man.png" },
-        "Mesh559_2": { lightmap: "assets/models/Lightmap_Man.exr", aoMap: "assets/models/AO_Man.png" },
-        "J_2b01001": { lightmap: "assets/models/Lightmap_Door_new.exr", aoMap: "assets/models/AO_Door.png" },
-        // Add more objects here...
+        "buildingLP": { lightmap: "assets/models/oneMesh_lightmap2k.exr", aoMap: "assets/models/oneMesh_AO2k.png" },
     };
 
     // Load textures asynchronously
@@ -130,20 +124,20 @@ loader.load('assets/models/building10.glb', function (gltf) {
         if (child.isMesh) {
             console.log(`Mesh detected: ${child.name}`);
             
-            if(child.name=="Plane" || child.name=="Plane_1") {
-                const material = child.material;
-                if (material.map) {
-                    console.log(`Modifying texture scale for: ${child.name}`);
+            
+//                const material = child.material;
+//                if (material.map) {
+//                    console.log(`Modifying texture scale for: ${child.name}`);
     
-                    material.map.wrapS = THREE.RepeatWrapping;
-                    material.map.wrapT = THREE.RepeatWrapping;
+//                    material.map.wrapS = THREE.RepeatWrapping;
+//                    material.map.wrapT = THREE.RepeatWrapping;
                     
                     // Set the scale based on Blender's Mapping Node values
-                    material.map.repeat.set(6.95, 6.95); 
-    
-                    material.needsUpdate = true;
-                }
-            }
+//                    material.map.repeat.set(6.95, 6.95); 
+//    
+//                    material.needsUpdate = true;
+//                }
+            
 
             // Ensure UV2 is set up
             if (child.geometry.attributes.uv1) {
@@ -161,7 +155,7 @@ loader.load('assets/models/building10.glb', function (gltf) {
                     loadedLightMap.flipY = true;
                     loadedLightMap.encoding = THREE.LinearEncoding;
                     child.material.lightMap = loadedLightMap;
-                    child.material.lightMapIntensity = 1;
+                    child.material.lightMapIntensity = 2;
                     child.material.needsUpdate = true;
                 });
 
