@@ -91,8 +91,6 @@ const markerMaterial = new THREE.MeshBasicMaterial({
     color: 0xffffff,
     transparent: true,
     opacity: 0.5,
-    emissive: new THREE.Color(0xffffff),
-    emissiveIntensity: 2.5,
     depthWrite: false,
 });
 const cursorMarker = new THREE.Mesh(markerGeometry, markerMaterial);
