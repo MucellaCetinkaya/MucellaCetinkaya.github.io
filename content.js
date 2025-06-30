@@ -74,8 +74,8 @@ export const overlayTemplates = {
              becomes visible through touch. Surfaces reveal themselves not all at once, but through intentional
               action: a brush of the hand uncovers a table, a step forward gives shape to the floor. </p>
         <div class="flex justify-center mb-4">
-              <video width="608" height="352" autoplay loop muted playsinline>
-                <source src="videos/ev1.mp4" type="video/mp4">
+              <video width="1280" height="720" autoplay loop muted playsinline>
+                <source src="videos/ev cat.mp4" type="video/mp4">
             </video>
         </div>
         <img src="images/ev/ev3.png" alt="enactive vision ev3" class="mb-4 w-full max-w-full h-auto object-contain mx-auto">
