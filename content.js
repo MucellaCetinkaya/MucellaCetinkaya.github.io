@@ -83,13 +83,17 @@ export const overlayTemplates = {
             becomes more visible, it also shapes and is shaped by the user's behavior, highlighting the 
             reciprocal nature of perception and action. </p>
         <img src="images/ev/ev4.png" alt="enactive vision ev4" class="mb-4 w-full max-w-full h-auto object-contain mx-auto">
-        <img src="images/ev/ev5.png" alt="enactive vision ev5" class="mb-4 w-full max-w-full h-auto object-contain mx-auto">
         <div class="flex justify-center mb-4">
             <video width="1280" height="720" autoplay loop muted playsinline>
               <source src="videos/new fish1.mp4" type="video/mp4">
           </video>
         </div>
         <img src="images/ev/ev6.png" alt="enactive vision ev6" class="mb-4 w-full max-w-full h-auto object-contain mx-auto">
+        <div class="flex justify-center mb-4">
+            <video width="1280" height="720" autoplay loop muted playsinline>
+              <source src="videos/ev stone plant.mp4" type="video/mp4">
+          </video>
+        </div>        
         <img src="images/ev/ev10.png" alt="enactive vision ev10" class="mb-4 w-full max-w-full h-auto object-contain mx-auto">
         <p class="mb-8 font-['Forum'] text-[var(--pale-green-text)] text-lg">Enactive Vision was developed as 
           part of a group project, with the core concept and full implementation carried out by me. I conceived 
